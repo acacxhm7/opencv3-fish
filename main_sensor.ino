@@ -28,6 +28,7 @@ void loop(void)
 { 
   sensors.requestTemperatures(); 
   Celcius=sensors.getTempCByIndex(0);       //获得摄氏温度
+  Serial.print("Temperature:");
   Serial.print(Celcius);                     //串口打印温度
   Serial.println("C");
 
