@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+
+import serial
+import time
+
+#下面这里我可以写一个try语句
+ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=5)    #ttyUSB串口可在arduinoIDE查看
+
+# read from Arduino
+
+input = ser.read()
+print ("Read input " + input.decode("utf-8") + " from Arduino")
+
+while 1:
+    # read response back from Arduino
+    for i in range (0,3):
+        input = ser.readline()
+        if("Temp" in str(input)):
+            temp_val = input
+            temp_val = temp_val[12:-3]
+            print("readTemp"+str(temp_val))
+        elif("PH" in str(input)):
+            PH_val = input
+            PH_val = PH_val[9:-2]
+            print("readPH"+str(PH_val))
+        else:
+            TU_val = input
+            TU_val = TU_val[9:-5]
+            print("readTU"+str(TU_val))
+        print ("Read input back: " + str(input))
+    time.sleep(1)
